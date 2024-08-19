@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Gazprome_TaskManager.iml" filepath="$PROJECT_DIR$/.idea/Gazprome_TaskManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TaskManager.iml" filepath="$PROJECT_DIR$/.idea/sxTaskManager.iml" />
     </modules>
   </component>
 </project>

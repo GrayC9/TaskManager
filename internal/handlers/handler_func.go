@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"Gazprome_TaskManager/internal_1/storage"
 	"encoding/json"
 	"fmt"
+	"main/internal/storage"
 	"net/http"
 	"time"
 )
