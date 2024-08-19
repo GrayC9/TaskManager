@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/GrayC9/TaskManager/internal/handlers"
 	"log"
-	"main/internal/handlers"
 	"net/http"
 )
 

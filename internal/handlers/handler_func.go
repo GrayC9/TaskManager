@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"main/internal/storage"
+	"github.com/GrayC9/TaskManager/internal/storage"
 	"net/http"
 	"time"
 )
