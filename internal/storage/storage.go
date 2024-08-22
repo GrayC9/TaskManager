@@ -22,9 +22,9 @@ func CloseDB() {
 	}
 }
 
-func SaveToDB(fio, tekstObrasheniya, timeToComplete string) error {
-	query := "INSERT INTO submissions (fio, tekst_obrasheniya, time_to_complete) VALUES (?, ?, ?)"
-	_, err := db.Exec(query, fio, tekstObrasheniya, timeToComplete)
+func SaveToDB(lastName, firstName, threeName, tekstObrasheniya, timeToComplete string) error {
+	query := "INSERT INTO tasks (last_name, first_name, three_name, tekst_obrasheniya, time_to_complete) VALUES (?, ?, ?, ?, ?)"
+	_, err := db.Exec(query, lastName, firstName, threeName, tekstObrasheniya, timeToComplete)
 	if err != nil {
 		return fmt.Errorf("Ошибка сохранения в базу данных: %v", err)
 	}

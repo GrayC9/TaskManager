@@ -9,7 +9,9 @@ import (
 )
 
 type FormData struct {
-	FIO              string `json:"fio"`
+	LastName         string `json:"last_name"`
+	FirstName        string `json:"first_name"`
+	ThreeName        string `json:"three_name"`
 	TekstObrasheniya string `json:"tekst_obrasheniya"`
 	TimeToComplete   string `json:"time_to_complete"`
 }
@@ -29,7 +31,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Printf("Получены данные: %+v\n", data)
 
-	err = storage.SaveToDB(data.FIO, data.TekstObrasheniya, data.TimeToComplete)
+	err = storage.SaveToDB(data.LastName, data.FirstName, data.ThreeName, data.TekstObrasheniya, data.TimeToComplete)
 	if err != nil {
 		http.Error(w, "Не удалось сохранить данные в базу данных", http.StatusInternalServerError)
 		return
