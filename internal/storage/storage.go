@@ -1,18 +1,32 @@
 package storage
 
-import "os"
+import (
+	"database/sql"
+	"fmt"
+)
 
-func SaveToFile(record string) error {
-	file, err := os.OpenFile("data/records.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+var db *sql.DB
+
+func InitDB(dsn string) error {
+	var err error
+	db, err = sql.Open("mysql", dsn)
 	if err != nil {
-		return err
+		return fmt.Errorf("Ошибка подключения к базе данных: %v", err)
 	}
-	defer file.Close()
+	return nil
+}
 
-	_, err = file.WriteString(record)
+func CloseDB() {
+	if db != nil {
+		db.Close()
+	}
+}
+
+func SaveToDB(fio, tekstObrasheniya, timeToComplete string) error {
+	query := "INSERT INTO submissions (fio, tekst_obrasheniya, time_to_complete) VALUES (?, ?, ?)"
+	_, err := db.Exec(query, fio, tekstObrasheniya, timeToComplete)
 	if err != nil {
-		return err
+		return fmt.Errorf("Ошибка сохранения в базу данных: %v", err)
 	}
-
 	return nil
 }

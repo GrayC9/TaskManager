@@ -3,9 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/GrayC9/TaskManager/internal/storage"
 	"net/http"
-	"time"
+
+	"github.com/GrayC9/TaskManager/internal/storage"
 )
 
 type FormData struct {
@@ -16,7 +16,7 @@ type FormData struct {
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Только POST запросы ", http.StatusMethodNotAllowed)
+		http.Error(w, "Только POST запросы поддерживаются", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -29,12 +29,9 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Printf("Получены данные: %+v\n", data)
 
-	record := fmt.Sprintf("ФИО: %s\nТекст обращения: %s\nВремя на выполнение: %s\nДата обращения: %s\n\n",
-		data.FIO, data.TekstObrasheniya, data.TimeToComplete, time.Now().Format(time.RFC1123))
-
-	err = storage.SaveToFile(record)
+	err = storage.SaveToDB(data.FIO, data.TekstObrasheniya, data.TimeToComplete)
 	if err != nil {
-		http.Error(w, "Не удалось сохранить данные", http.StatusInternalServerError)
+		http.Error(w, "Не удалось сохранить данные в базу данных", http.StatusInternalServerError)
 		return
 	}
 
