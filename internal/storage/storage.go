@@ -14,6 +14,12 @@ func InitDB(dsn string) error {
 	if err != nil {
 		return fmt.Errorf("Ошибка подключения к базе данных: %v", err)
 	}
+
+	if err := db.Ping(); err != nil {
+		return fmt.Errorf("Не удалось подключиться к базе данных: %v", err)
+	}
+
+	fmt.Println("Успешное подключение к базе данных!")
 	return nil
 }
 
@@ -23,11 +29,12 @@ func CloseDB() {
 	}
 }
 
-func SaveToDB(lastName, firstName, threeName, tekstObrasheniya, timeToComplete string) error {
-	query := "INSERT INTO tasks (last_name, first_name, three_name, tekst_obrasheniya, time_to_complete) VALUES (?, ?, ?, ?, ?)"
-	_, err := db.Exec(query, lastName, firstName, threeName, tekstObrasheniya, timeToComplete)
+func SaveTaskToDB(title, description string, severityID, employeeID int) error {
+	query := "INSERT INTO tasks (title, description, severity_id, employee_id) VALUES (?, ?, ?, ?)"
+	_, err := db.Exec(query, title, description, severityID, employeeID)
 	if err != nil {
-		return fmt.Errorf("Ошибка сохранения в базу данных: %v", err)
+		fmt.Printf("Ошибка при сохранении задачи: %v\n", err)
+		return fmt.Errorf("Ошибка сохранения задачи в базу данных: %v", err)
 	}
 	return nil
 }

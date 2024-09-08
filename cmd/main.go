@@ -19,7 +19,7 @@ func main() {
 	}
 	defer storage.CloseDB()
 
-	http.HandleFunc("/", handlers.FormHandler)
+	http.HandleFunc("/", handlers.TaskHandler)
 
 	fmt.Println("Сервер запущен на порту", cfg.Server.Address)
 	if err := http.ListenAndServe(cfg.Server.Address, nil); err != nil {
