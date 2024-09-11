@@ -1,6 +1,7 @@
 package config
 
 import (
+	"log"
 	"os"
 )
 
@@ -18,7 +19,7 @@ type DBConfig struct {
 }
 
 func LoadConfig() Config {
-	return Config{
+	config := Config{
 		Server: ServerConfig{
 			Address: getEnv("SERVER_ADDRESS", ":8080"),
 		},
@@ -26,6 +27,12 @@ func LoadConfig() Config {
 			DSN: getEnv("DB_DSN", ""),
 		},
 	}
+
+	if config.DB.DSN == "" {
+		log.Fatal("DB_DSN пустой")
+	}
+
+	return config
 }
 
 func getEnv(key, fallback string) string {

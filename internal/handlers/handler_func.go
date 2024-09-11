@@ -2,10 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
-	"net/http"
-
 	"github.com/GrayC9/TaskManager/internal/storage"
+	"log"
+	"net/http"
 )
 
 type TaskData struct {
@@ -28,11 +27,11 @@ func TaskHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("Получены данные: %+v\n", data)
+	log.Printf("Получены данные: %+v\n", data)
 
-	err = storage.SaveTaskToDB(data.Title, data.Description, data.SeverityID, data.EmployeeID)
+	err = storage.SaveTaskToDB(data)
 	if err != nil {
-		http.Error(w, "Не удалось сохранить задачу в базу данных", http.StatusInternalServerError)
+		http.Error(w, "К солжалению, не удалость создать задачу", http.StatusInternalServerError)
 		return
 	}
 
